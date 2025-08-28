@@ -1,0 +1,6 @@
+packages:
+  # packages/ 直接子目录中的所有包
+  - 'packages/*'
+  - 'swell-draw-app'
+  # 排除测试目录中的包
+  - '!**/test/**'
