@@ -20,6 +20,6 @@
     "baseUrl": ".",
     "paths": {}
   },
-  "include": ["packages", "excalidraw-app"],
+  "include": ["packages", "swell-draw-app"],
   "exclude": ["examples", "dist", "types", "tests"]
 }
