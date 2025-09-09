@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ["./packages/eslint-config-custom/.eslintrc.json"],
+  extends: ["custom/library"],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
@@ -17,5 +17,8 @@ module.exports = {
     "packages/*/node_modules/",
     "dist/",
     "build/",
+    "coverage",
+    "package-lock.json",
+    ".vscode/",
   ],
 };

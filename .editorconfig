@@ -1,0 +1,28 @@
+# http://EditorConfig.org
+# 注释：指向 EditorConfig 官方网站
+
+# top-level EditorConfig file
+# 注释：这是顶级 EditorConfig 文件
+root = true
+# 作用：表示这是根配置文件，不会向上查找其他 .editorconfig 文件
+
+[*]
+# 作用：对所有文件类型生效（通配符 * 匹配所有文件）
+
+charset = utf-8
+# 作用：设置文件编码为 UTF-8
+
+end_of_line = lf
+# 作用：设置行尾符为 LF（Unix/Linux 风格），而不是 CRLF（Windows 风格）
+
+indent_size = 2
+# 作用：设置缩进大小为 2 个字符
+
+indent_style = space
+# 作用：使用空格进行缩进，而不是制表符（tab）
+
+insert_final_newline = true
+# 作用：在文件末尾插入一个空行
+
+trim_trailing_whitespace = true
+# 作用：自动删除行尾的空白字符（空格、制表符等）
