@@ -1,10 +1,10 @@
-const { ESLint } = require("eslint");
+import { ESLint } from "eslint";
 
 // see https://github.com/okonet/lint-staged#how-can-i-ignore-files-from-eslintignore-
 // for explanation
 const eslint = new ESLint({});
 
-module.exports = {
+export default {
   "*.{js,ts,tsx}": async (files) => {
     const filteredFiles = [];
     for (const file of files) {

@@ -17,6 +17,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
+      '@swell-draw/eslint-config':
+        specifier: workspace:*
+        version: link:packages/eslint-config
       '@types/jest':
         specifier: ^30.0.0
         version: 30.0.0
@@ -32,9 +35,6 @@ importers:
       eslint:
         specifier: ^9.33.0
         version: 9.35.0(jiti@2.5.1)
-      eslint-config:
-        specifier: workspace:*
-        version: link:packages/eslint-config
       eslint-config-prettier:
         specifier: ^10.1.8
         version: 10.1.8(eslint@9.35.0(jiti@2.5.1))
@@ -95,6 +95,12 @@ importers:
       eslint-plugin-react:
         specifier: 7.37.5
         version: 7.37.5(eslint@9.35.0(jiti@2.5.1))
+      eslint-plugin-react-hooks:
+        specifier: ^5.2.0
+        version: 5.2.0(eslint@9.35.0(jiti@2.5.1))
+      eslint-plugin-react-refresh:
+        specifier: ^0.4.14
+        version: 0.4.20(eslint@9.35.0(jiti@2.5.1))
       globals:
         specifier: ^16.3.0
         version: 16.3.0
@@ -119,6 +125,9 @@ importers:
       '@eslint/js':
         specifier: ^9.33.0
         version: 9.35.0
+      '@swell-draw/eslint-config':
+        specifier: workspace:*
+        version: link:../packages/eslint-config
       '@types/react':
         specifier: ^19.1.10
         version: 19.1.12
@@ -131,9 +140,6 @@ importers:
       eslint:
         specifier: ^9.33.0
         version: 9.35.0(jiti@2.5.1)
-      eslint-config:
-        specifier: workspace:*
-        version: link:../packages/eslint-config
       eslint-plugin-react-hooks:
         specifier: ^5.2.0
         version: 5.2.0(eslint@9.35.0(jiti@2.5.1))
