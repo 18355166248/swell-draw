@@ -6,14 +6,6 @@
     "jsx": "react-jsx",
     "lib": ["ES2015", "DOM"],
     "module": "ESNext",
-    "target": "es6",
-    "paths": {
-      "@xmly/basic-element": ["../basic-element/src/index.tsx"],
-      "@xmly/base-utils": ["../packages/base-utils/src/index.tsx"],
-      "@xmly/subscribe-checkstand-h5": [
-        "../packages/subscribe-checkstand-h5/src/index.tsx"
-      ],
-      "@xmly/placeorder-utils": ["../placeorder-utils/src/index.ts"]
-    }
+    "target": "es6"
   }
 }
