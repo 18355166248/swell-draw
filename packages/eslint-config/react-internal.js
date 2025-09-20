@@ -27,7 +27,18 @@ export default [
   ...tseslint.configs.recommended,
 
   // React 配置
-  pluginReact.configs.flat.recommended,
+  {
+    ...pluginReact.configs.flat.recommended,
+    settings: {
+      react: {
+        version: "detect",
+        runtime: "automatic", // 使用新的 JSX 转换
+      },
+    },
+    rules: {
+      "react/react-in-jsx-scope": "off", // 关闭此规则，因为使用了新的 JSX 转换
+    },
+  },
 
   // React Hooks 和 Refresh 配置 - 适用于 React 应用
   {
