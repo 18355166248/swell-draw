@@ -2,18 +2,18 @@ import { defineConfig, loadEnv } from "vite";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import react from "@vitejs/plugin-react";
-import { ViteEjsPlugin } from "vite-plugin-ejs";
 import checker from "vite-plugin-checker"; // 类型检查和 ESLint 检查插件
+import { createHtmlPlugin } from "vite-plugin-html"; // HTML 处理插件
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const rootEnvVars = loadEnv(mode, "../");
   return {
+    // 环境变量文件目录配置
+    // 由于 .env 文件位于父目录而不是与 vite.config.ts 同级，需要指定 envDir
+    envDir: "../",
     plugins: [
       react(),
-      ViteEjsPlugin({
-        title: "Swell Draw",
-      }),
       checker({
         typescript: true,
         // 根据环境变量决定是否启用 ESLint
@@ -30,6 +30,16 @@ export default defineConfig(({ mode }) => {
           badgeStyle: "margin-bottom: 4rem; margin-left: 1rem",
         },
       }),
+      // HTML 处理插件配置
+      createHtmlPlugin({
+        minify: true, // 启用 HTML 压缩
+        inject: {
+          data: {
+            title: "Swell Draw",
+          },
+        },
+      }),
     ],
+    publicDir: "../public",
   };
 });
