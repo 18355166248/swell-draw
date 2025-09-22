@@ -4,16 +4,22 @@ import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import checker from "vite-plugin-checker"; // 类型检查和 ESLint 检查插件
 import { createHtmlPlugin } from "vite-plugin-html"; // HTML 处理插件
+import UnoCSS from "unocss/vite";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const rootEnvVars = loadEnv(mode, "../");
   return {
+    server: {
+      port: Number(rootEnvVars.VITE_APP_PORT),
+      open: true,
+    },
     // 环境变量文件目录配置
     // 由于 .env 文件位于父目录而不是与 vite.config.ts 同级，需要指定 envDir
     envDir: "../",
     plugins: [
       react(),
+      UnoCSS(),
       checker({
         typescript: true,
         // 根据环境变量决定是否启用 ESLint

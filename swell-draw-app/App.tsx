@@ -5,7 +5,7 @@ const App = () => {
     console.log("App");
   }, []);
 
-  return <div>React</div>;
+  return <div className="text-blue-500">React</div>;
 };
 
 export default App;
