@@ -15,7 +15,7 @@ const isDevelopment =
   window.location.hostname.includes("127.0.0.1");
 
 // 只在生产环境或指定域名下初始化 Sentry
-if (isDevelopment || onlineEnv) {
+if (!isDevelopment || onlineEnv) {
   try {
     // https://swell-x7.sentry.io/insights/projects/swell-draw/?project=4510066675154944&statsPeriod=14d
     Sentry.init({
