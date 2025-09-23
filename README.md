@@ -10,3 +10,5 @@ nvm use 22 && pnpm --filter swell-draw-app run start
 
 - [jotai](https://jotai.org/docs/core/atom)
 - [sentry swell-draw](https://swell-x7.sentry.io/insights/projects/swell-draw/?project=4510066675154944&statsPeriod=14d)
+- [vite](https://vitejs.cn/vite6-cn/config/)
+- [unocss](https://unocss.dev/guide/)

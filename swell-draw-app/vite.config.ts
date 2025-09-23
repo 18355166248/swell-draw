@@ -24,6 +24,25 @@ export default defineConfig(({ mode }) => {
         "app-jotai": path.resolve(__dirname, "./app-jotai"),
       },
     },
+    build: {
+      outDir: "build",
+      // 代码分割配置
+      rollupOptions: {
+        output: {
+          assetFileNames() {
+            return "assets/[name]-[hash][extname]";
+          },
+          manualChunks: {
+            // Sentry 相关
+            sentry: ["@sentry/browser"],
+          },
+        },
+      },
+      // 生成 source map 用于调试
+      // sourcemap: true,
+      // 小于此阈值的导入或引用资源将内联为 base64 编码，以避免额外的 http 请求。设置为 0 可以完全禁用此项。
+      assetsInlineLimit: 0,
+    },
     plugins: [
       react(),
       UnoCSS(),

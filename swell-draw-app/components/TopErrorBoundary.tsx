@@ -35,16 +35,37 @@ export class TopErrorBoundary extends React.Component<
       }
     }
 
-    Sentry.withScope((scope) => {
-      scope.setExtras({ errorInfo });
-      const eventId = Sentry.captureException(error);
+    // 检查 Sentry 是否可用
+    if (typeof Sentry !== "undefined" && Sentry.captureException) {
+      try {
+        Sentry.withScope((scope) => {
+          scope.setExtras({ errorInfo });
+          const eventId = Sentry.captureException(error);
 
+          this.setState(() => ({
+            hasError: true,
+            sentryEventId: eventId,
+            localStorage: JSON.stringify(_localStorage),
+          }));
+        });
+      } catch (sentryError) {
+        console.warn("Sentry 错误上报失败:", sentryError);
+        // 即使 Sentry 失败，也要显示错误界面
+        this.setState(() => ({
+          hasError: true,
+          sentryEventId: "",
+          localStorage: JSON.stringify(_localStorage),
+        }));
+      }
+    } else {
+      console.warn("Sentry 不可用，跳过错误上报");
+      // 即使没有 Sentry，也要显示错误界面
       this.setState(() => ({
         hasError: true,
-        sentryEventId: eventId,
+        sentryEventId: "",
         localStorage: JSON.stringify(_localStorage),
       }));
-    });
+    }
   }
 
   private errorSplash() {
