@@ -1,0 +1,10 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "outDir": "./dist/types"
+  },
+  "include": ["src/**/*", "global.d.ts"],
+  "exclude": ["**/*.test.*", "tests", "types", "examples", "dist"]
+}

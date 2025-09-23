@@ -4,6 +4,7 @@ nvm use 22 && pnpm i
 
 一键启动命令
 
+nvm use 22 && pnpm run start
 nvm use 22 && pnpm --filter swell-draw-app run start
 
 ## 常用链接

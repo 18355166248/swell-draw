@@ -1,0 +1,9 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "outDir": "./dist/types"
+  },
+  "resolveJsonModule": true,
+  "include": ["**/*", "global.d.ts"],
+  "exclude": ["**/*.test.*", "tests", "types", "examples", "dist"]
+}

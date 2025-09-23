@@ -5,7 +5,6 @@ import { useEffect } from "react";
 const SwellDrawWrap = () => {
   useEffect(() => {
     console.log("App");
-    throw new Error("test");
   }, []);
 
   return <div className="text-blue-500">React</div>;
