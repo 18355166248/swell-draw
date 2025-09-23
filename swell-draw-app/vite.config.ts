@@ -10,7 +10,9 @@ import UnoCSS from "unocss/vite";
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const rootEnvVars = loadEnv(mode, "../");
+
   return {
+    base: rootEnvVars.VITE_APP_BASE_URL,
     server: {
       port: Number(rootEnvVars.VITE_APP_PORT),
       open: true,

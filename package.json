@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "prepare": "husky",
-    "app-build-test": "pnpm --filter swell-draw-app run build"
+    "app-build": "pnpm --filter swell-draw-app run build",
+    "app-build:test": "pnpm --filter swell-draw-app run build:test",
+    "app-build:production": "pnpm --filter swell-draw-app run build:production"
   },
   "keywords": [],
   "author": "",

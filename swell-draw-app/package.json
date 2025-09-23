@@ -6,7 +6,9 @@
   "private": true,
   "scripts": {
     "start": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "build:test": "vite build --mode development",
+    "build:production": "vite build --mode production"
   },
   "keywords": [],
   "author": "",
