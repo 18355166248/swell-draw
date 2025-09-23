@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      outDir: "build",
+      outDir: "../dist",
       // 代码分割配置
       rollupOptions: {
         output: {
