@@ -24,7 +24,13 @@ export default [
   },
 
   // TypeScript 推荐配置
-  ...tseslint.configs.recommended,
+  ...tseslint.configs.recommended.map((config) => ({
+    ...config,
+    rules: {
+      ...config.rules,
+      "@typescript-eslint/no-explicit-any": "warn",
+    },
+  })),
 
   // React 配置
   {

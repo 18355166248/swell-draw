@@ -109,6 +109,9 @@ importers:
 
   swell-draw-app:
     dependencies:
+      '@sentry/browser':
+        specifier: 10.13.0
+        version: 10.13.0
       jotai:
         specifier: ^2.13.1
         version: 2.13.1(@babel/core@7.28.4)(@babel/template@7.27.2)(@types/react@19.1.12)(react@19.1.1)
@@ -1421,6 +1424,30 @@ packages:
 
   '@rushstack/eslint-patch@1.12.0':
     resolution: {integrity: sha512-5EwMtOqvJMMa3HbmxLlF74e+3/HhwBTMcvt3nqVJgGCozO6hzIPOBlwm8mGVNR9SN2IJpxSnlxczyDjcn7qIyw==, tarball: https://registry.npmmirror.com/@rushstack/eslint-patch/-/eslint-patch-1.12.0.tgz}
+
+  '@sentry-internal/browser-utils@10.13.0':
+    resolution: {integrity: sha512-e50QBM8yTd0Hn3A2iDmqDdiPkzXFtwVWUiNdLQ1odvAPGHMChXGFHZe7qrFMisGq5NwUA5lHGdk1eZoM71owHw==, tarball: https://registry.npmmirror.com/@sentry-internal/browser-utils/-/browser-utils-10.13.0.tgz}
+    engines: {node: '>=18'}
+
+  '@sentry-internal/feedback@10.13.0':
+    resolution: {integrity: sha512-Sm7ShXUbN2oG57nq6Tayqm9PePlEToZWduSc4LO9jlp34zTM5bDSJ/3zG83UPVnVWnVak6P/RbeCwNd2U5pdDw==, tarball: https://registry.npmmirror.com/@sentry-internal/feedback/-/feedback-10.13.0.tgz}
+    engines: {node: '>=18'}
+
+  '@sentry-internal/replay-canvas@10.13.0':
+    resolution: {integrity: sha512-2JjTc928l0faKIlfMrLtSUpuAUeUFKDk84mfkjnIr3tTdJSIZGxE0wFiaC+PFAARrIlyjdK3yzvAwAMkjlvdcw==, tarball: https://registry.npmmirror.com/@sentry-internal/replay-canvas/-/replay-canvas-10.13.0.tgz}
+    engines: {node: '>=18'}
+
+  '@sentry-internal/replay@10.13.0':
+    resolution: {integrity: sha512-Gp2keOmy9V4YSchQPdba5lkG+XUpzm9ixCiJpCZ3hE0TKrYUHmrKYRyOCOvzg77aP4oif4WgDTAQjABuxilfXw==, tarball: https://registry.npmmirror.com/@sentry-internal/replay/-/replay-10.13.0.tgz}
+    engines: {node: '>=18'}
+
+  '@sentry/browser@10.13.0':
+    resolution: {integrity: sha512-DQ0HgO40hZEKVBuNmXVH6FVxC24gL60EJ74bnEWIdKKSV1r5FqRE0ho/PIYZnVlw4khUD4iwEzZTjaBPZDwcLw==, tarball: https://registry.npmmirror.com/@sentry/browser/-/browser-10.13.0.tgz}
+    engines: {node: '>=18'}
+
+  '@sentry/core@10.13.0':
+    resolution: {integrity: sha512-nS9kRE0KW3ZzkeNzv4vZ0aAmoyDbZD7tyqcwYPg4uaH1Q8ns4bIJAAHh0JOkUhzu/RjV2eAXnAEv2beWtL/GrQ==, tarball: https://registry.npmmirror.com/@sentry/core/-/core-10.13.0.tgz}
+    engines: {node: '>=18'}
 
   '@sinclair/typebox@0.34.40':
     resolution: {integrity: sha512-gwBNIP8ZAYev/ORDWW0QvxdwPXwxBtLsdsJgSc7eDIRt8ubP+rxUBzPsrwnu16fgEF8Bx4lh/+mvQvJzcTM6Kw==, tarball: https://registry.npmmirror.com/@sinclair/typebox/-/typebox-0.34.40.tgz}
@@ -6649,6 +6676,34 @@ snapshots:
   '@rtsao/scc@1.1.0': {}
 
   '@rushstack/eslint-patch@1.12.0': {}
+
+  '@sentry-internal/browser-utils@10.13.0':
+    dependencies:
+      '@sentry/core': 10.13.0
+
+  '@sentry-internal/feedback@10.13.0':
+    dependencies:
+      '@sentry/core': 10.13.0
+
+  '@sentry-internal/replay-canvas@10.13.0':
+    dependencies:
+      '@sentry-internal/replay': 10.13.0
+      '@sentry/core': 10.13.0
+
+  '@sentry-internal/replay@10.13.0':
+    dependencies:
+      '@sentry-internal/browser-utils': 10.13.0
+      '@sentry/core': 10.13.0
+
+  '@sentry/browser@10.13.0':
+    dependencies:
+      '@sentry-internal/browser-utils': 10.13.0
+      '@sentry-internal/feedback': 10.13.0
+      '@sentry-internal/replay': 10.13.0
+      '@sentry-internal/replay-canvas': 10.13.0
+      '@sentry/core': 10.13.0
+
+  '@sentry/core@10.13.0': {}
 
   '@sinclair/typebox@0.34.40': {}
 

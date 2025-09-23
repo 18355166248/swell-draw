@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@sentry/browser": "10.13.0",
     "jotai": "^2.13.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

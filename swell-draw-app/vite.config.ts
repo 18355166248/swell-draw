@@ -1,3 +1,4 @@
+import path from "path";
 import { defineConfig, loadEnv } from "vite";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -17,6 +18,11 @@ export default defineConfig(({ mode }) => {
     // 环境变量文件目录配置
     // 由于 .env 文件位于父目录而不是与 vite.config.ts 同级，需要指定 envDir
     envDir: "../",
+    resolve: {
+      alias: {
+        components: path.resolve(__dirname, "./components"),
+      },
+    },
     plugins: [
       react(),
       UnoCSS(),

@@ -1,3 +1,4 @@
+import { TopErrorBoundary } from "components/TopErrorBoundary";
 import { useEffect } from "react";
 
 const App = () => {
@@ -5,7 +6,11 @@ const App = () => {
     console.log("App");
   }, []);
 
-  return <div className="text-blue-500">React</div>;
+  return (
+    <TopErrorBoundary>
+      <div className="text-blue-500">React</div>
+    </TopErrorBoundary>
+  );
 };
 
 export default App;
