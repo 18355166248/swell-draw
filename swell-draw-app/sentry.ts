@@ -15,11 +15,11 @@ const isDevelopment =
   window.location.hostname.includes("127.0.0.1");
 
 // 只在生产环境或指定域名下初始化 Sentry
-if (!isDevelopment || onlineEnv) {
+if (isDevelopment || onlineEnv) {
   try {
     // https://swell-x7.sentry.io/insights/projects/swell-draw/?project=4510066675154944&statsPeriod=14d
     Sentry.init({
-      dsn: "https://400d7b1b282e1e3126751527e7754050@o4509999784329216.ingest.us.sentry.io/4510066672271360",
+      dsn: "https://a7648d965444e52f6ad6e9b831cc2f0f@o4509999784329216.ingest.us.sentry.io/4510066675154944",
       environment: onlineEnv ? SentryEnvHostnameMap[onlineEnv] : "development",
       integrations: [Sentry.browserTracingIntegration()],
 
