@@ -21,6 +21,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         components: path.resolve(__dirname, "./components"),
+        "app-jotai": path.resolve(__dirname, "./app-jotai"),
       },
     },
     plugins: [

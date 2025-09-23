@@ -1,14 +1,22 @@
+import { appJotaiStore, Provider } from "app-jotai";
 import { TopErrorBoundary } from "components/TopErrorBoundary";
 import { useEffect } from "react";
 
-const App = () => {
+const SwellDrawWrap = () => {
   useEffect(() => {
     console.log("App");
+    throw new Error("test");
   }, []);
 
+  return <div className="text-blue-500">React</div>;
+};
+
+const App = () => {
   return (
     <TopErrorBoundary>
-      <div className="text-blue-500">React</div>
+      <Provider store={appJotaiStore}>
+        <SwellDrawWrap />
+      </Provider>
     </TopErrorBoundary>
   );
 };
