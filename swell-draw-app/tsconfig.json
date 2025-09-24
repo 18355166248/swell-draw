@@ -3,6 +3,10 @@
   "exclude": ["dist", "build", "node_modules", "es", "lib"],
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@swell-draw/common": ["../packages/common/src"],
+      "@swell-draw/common/*": ["../packages/common/src/*"],
+      "@swell-draw/swellDraw/*": ["../packages/swellDraw/*"]
+    }
   }
 }

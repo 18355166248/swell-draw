@@ -21,10 +21,28 @@ export default defineConfig(({ mode }) => {
     // 由于 .env 文件位于父目录而不是与 vite.config.ts 同级，需要指定 envDir
     envDir: "../",
     resolve: {
-      alias: {
-        components: path.resolve(__dirname, "./components"),
-        "app-jotai": path.resolve(__dirname, "./app-jotai"),
-      },
+      alias: [
+        {
+          find: "components",
+          replacement: path.resolve(__dirname, "./components"),
+        },
+        {
+          find: "app-jotai",
+          replacement: path.resolve(__dirname, "./app-jotai"),
+        },
+        {
+          find: /^@swell-draw\/common$/,
+          replacement: path.resolve(__dirname, "../packages/common/src"),
+        },
+        {
+          find: /^@swell-draw\/common\/(.*?)/,
+          replacement: path.resolve(__dirname, "../packages/common/src/$1"),
+        },
+        {
+          find: /^@swell-draw\/swellDraw\/(.*?)/,
+          replacement: path.resolve(__dirname, "../packages/swellDraw/src/$1"),
+        },
+      ],
     },
     build: {
       outDir: "../dist",

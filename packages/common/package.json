@@ -1,5 +1,5 @@
 {
-  "name": "common",
+  "name": "@swell-draw/common",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

@@ -1,10 +1,10 @@
 {
-  "name": "@swell-draw/utils",
+  "name": "@swell-draw/swellDraw",
   "version": "1.0.0",
-  "description": "工具库",
+  "description": "Swell Draw",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "gen:types": "rimraf types && tsc"
   },
   "keywords": [],
   "author": "",

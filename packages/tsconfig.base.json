@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "rootDir": "./",
+    "baseUrl": ".",
+    "paths": {
+      "@swell-draw/common": ["./common/src/index.ts"],
+      "@swell-draw/common/*": ["./common/src/*"],
+      "@swell-draw/swellDraw/*": ["./swellDraw/*"]
+    }
+  },
+  "include": ["packages"],
+  "exclude": ["dist", "types", "tests"]
+}
