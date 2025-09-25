@@ -1,6 +1,6 @@
 import { isDevEnv, NestedTypeOf } from "@swell-draw/common";
 import fallbackLangData from "./locales/zh-cN.json";
-import percentages from "./locales/precentages.json";
+import percentages from "./locales/percentage.json";
 import { atom, useAtomValue } from "./editor-jotai";
 
 const COMPLETION_THRESHOLD = 85;

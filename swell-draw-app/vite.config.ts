@@ -39,8 +39,15 @@ export default defineConfig(({ mode }) => {
           replacement: path.resolve(__dirname, "../packages/common/src/$1"),
         },
         {
+          find: /^@swell-draw\/swellDraw$/,
+          replacement: path.resolve(
+            __dirname,
+            "../packages/swellDraw/index.tsx",
+          ),
+        },
+        {
           find: /^@swell-draw\/swellDraw\/(.*?)/,
-          replacement: path.resolve(__dirname, "../packages/swellDraw/src/$1"),
+          replacement: path.resolve(__dirname, "../packages/swellDraw/$1"),
         },
       ],
     },

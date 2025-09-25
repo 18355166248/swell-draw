@@ -3,9 +3,11 @@
   "exclude": ["dist", "build", "node_modules", "es", "lib"],
   "compilerOptions": {
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "paths": {
       "@swell-draw/common": ["../packages/common/src"],
       "@swell-draw/common/*": ["../packages/common/src/*"],
+      "@swell-draw/swellDraw": ["../packages/swellDraw"],
       "@swell-draw/swellDraw/*": ["../packages/swellDraw/*"]
     }
   }

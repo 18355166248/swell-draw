@@ -1,5 +1,5 @@
 {
-  "extends": ["tsconfig/base.json", "../tsconfig.base.json"],
+  "extends": ["tsconfig/react-library.json", "../tsconfig.base.json"],
   "compilerOptions": {
     "outDir": "./dist/types",
     "resolveJsonModule": true

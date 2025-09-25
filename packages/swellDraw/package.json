@@ -10,7 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jotai": "^2.13.1",
-    "jotai-scope": "0.9.4"
+    "jotai": "^2.14.0",
+    "jotai-scope": "0.9.4",
+    "lodash.omit": "4.5.0"
+  },
+  "devDependencies": {
+    "@types/lodash.omit": "4.5.9"
   }
 }

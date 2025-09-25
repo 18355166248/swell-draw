@@ -3,5 +3,8 @@
     "paste": "Paste",
     "cut": "Cut",
     "copy": "Copy"
+  },
+  "errorSplash": {
+    "headingMain": "Encountered an error. Try <button>reloading the page</button>."
   }
 }

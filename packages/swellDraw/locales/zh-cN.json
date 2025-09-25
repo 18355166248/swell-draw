@@ -3,5 +3,8 @@
     "paste": "粘贴",
     "cut": "剪切",
     "copy": "复制"
+  },
+  "errorSplash": {
+    "headingMain": "遇到异常。请尝试<button>重新加载页面</button>。"
   }
 }

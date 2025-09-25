@@ -1,5 +1,6 @@
 import React from "react";
 import * as Sentry from "@sentry/browser";
+import Trans from "@swell-draw/swellDraw/components/Trans";
 
 interface TopErrorBoundaryProps {
   children: React.ReactNode;
@@ -71,7 +72,16 @@ export class TopErrorBoundary extends React.Component<
   private errorSplash() {
     return (
       <div className="ErrorSplash swell-draw">
-        <div className="ErrorSplash-messageContainer">Error</div>
+        <div className="ErrorSplash-messageContainer">
+          <div className="ErrorSplash-paragraph bigger align-center">
+            <Trans
+              i18nKey="errorSplash.headingMain"
+              button={(el) => (
+                <button onClick={() => window.location.reload()}>{el}</button>
+              )}
+            />
+          </div>
+        </div>
       </div>
     );
   }
