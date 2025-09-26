@@ -32,3 +32,8 @@ export enum EVENT {
   VISIBILITY_CHANGE = "visibilitychange",
   SCROLL = "scroll",
 }
+
+export const isIOS =
+  /iPad|iPhone/i.test(navigator.platform) ||
+  // iPadOS 13+
+  (navigator.userAgent.includes("Mac") && "ontouchend" in document);

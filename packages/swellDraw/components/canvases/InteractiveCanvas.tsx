@@ -1,5 +1,5 @@
 import { InteractiveCanvasAppState } from "@swell-draw/swellDraw/types";
-import { useEffect, useRef } from "react";
+import { DOMAttributes, useEffect, useRef } from "react";
 
 type InteractiveCanvasProps = {
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -7,6 +7,22 @@ type InteractiveCanvasProps = {
   appState: InteractiveCanvasAppState;
   scale: number;
   handleCanvasRef: (canvas: HTMLCanvasElement | null) => void;
+  onPointerDown: Exclude<
+    DOMAttributes<HTMLCanvasElement>["onPointerDown"],
+    undefined
+  >;
+  onPointerUp: Exclude<
+    DOMAttributes<HTMLCanvasElement>["onPointerUp"],
+    undefined
+  >;
+  onPointerMove: Exclude<
+    DOMAttributes<HTMLCanvasElement>["onPointerMove"],
+    undefined
+  >;
+  onPointerCancel: Exclude<
+    DOMAttributes<HTMLCanvasElement>["onPointerCancel"],
+    undefined
+  >;
 };
 
 const InteractiveCanvas = (props: InteractiveCanvasProps) => {
@@ -17,6 +33,7 @@ const InteractiveCanvas = (props: InteractiveCanvasProps) => {
       return;
     }
   });
+
   return (
     <canvas
       className="swell-draw-canvas interactive"
@@ -27,6 +44,10 @@ const InteractiveCanvas = (props: InteractiveCanvasProps) => {
       }}
       width={props.appState.width * props.scale}
       height={props.appState.height * props.scale}
+      onPointerDown={props.onPointerDown}
+      onPointerUp={props.onPointerUp}
+      onPointerMove={props.onPointerMove}
+      onPointerCancel={props.onPointerCancel}
     />
   );
 };
