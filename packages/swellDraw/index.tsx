@@ -1,8 +1,10 @@
 import { memo } from "react";
 import { SwellDrawProps } from "./types";
+import App from "./components/App";
+import "./css/index.scss";
 
 const SwellDrawBase = ({ children }: SwellDrawProps) => {
-  return <div>{children}</div>;
+  return <App>{children}</App>;
 };
 
 const areEqual = (

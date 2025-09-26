@@ -1,21 +1,17 @@
 import { appJotaiStore, Provider } from "app-jotai";
 import { TopErrorBoundary } from "components/TopErrorBoundary";
-import { useEffect } from "react";
 import { SwellDraw } from "@swell-draw/swellDraw";
 import {
   EditorJotaiProvider,
   editorJotaiStore,
 } from "@swell-draw/swellDraw/editor-jotai";
+import clsx from "clsx";
 
 const SwellDrawWrap = () => {
-  useEffect(() => {
-    console.log("App");
-  }, []);
-
   return (
-    <SwellDraw>
-      <div className="text-blue-500">React</div>
-    </SwellDraw>
+    <div className={clsx("swell-draw")}>
+      <SwellDraw></SwellDraw>
+    </div>
   );
 };
 

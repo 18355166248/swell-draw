@@ -1,3 +1,5 @@
+export type Merge<M, N> = Omit<M, keyof N> & N;
+
 // 原始版本：包含所有路径（包括对象路径）
 export type NestedTypeOf<T, K extends keyof T = keyof T> = K extends keyof T &
   (string | number)

@@ -12,9 +12,11 @@
   "dependencies": {
     "jotai": "^2.14.0",
     "jotai-scope": "0.9.4",
-    "lodash.omit": "4.5.0"
+    "lodash.omit": "4.5.0",
+    "roughjs": "4.6.6"
   },
   "devDependencies": {
-    "@types/lodash.omit": "4.5.9"
+    "@types/lodash.omit": "4.5.9",
+    "sass": "1.93.2"
   }
 }

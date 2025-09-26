@@ -1,0 +1,17 @@
+.swell-draw {
+  canvas {
+    touch-action: none;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+
+    z-index: var(--zIndex-canvas);
+
+    &.interactive {
+      z-index: var(--zIndex-interactiveCanvas);
+    }
+  }
+
+  &-canvas {
+    position: absolute;
+  }
+}
