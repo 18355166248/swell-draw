@@ -37,3 +37,5 @@ export const isIOS =
   /iPad|iPhone/i.test(navigator.platform) ||
   // iPadOS 13+
   (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+
+export const isDarwin = /Mac|iPod|iPhone|iPad/.test(navigator.platform);

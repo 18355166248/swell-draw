@@ -43,6 +43,7 @@
     "node": "18.0.0 - 22.x.x"
   },
   "dependencies": {
-    "clsx": "2.1.1"
+    "clsx": "2.1.1",
+    "nanoid": "5.1.6"
   }
 }

@@ -5,6 +5,10 @@ import rough from "roughjs/bin/rough";
 import type { RoughCanvas } from "roughjs/bin/canvas";
 import InteractiveCanvas from "./canvases/InteractiveCanvas";
 import { EVENT, isIOS } from "@swell-draw/common";
+import LayerUI from "./LayerUI/LayerUI";
+import { SwellDrawContext } from "./AppContext";
+import { nanoid } from "nanoid";
+import { getDefaultAppState } from "./appState";
 
 class App extends Component<AppProps, AppState> {
   canvas: AppClassProperties["canvas"];
@@ -13,15 +17,27 @@ class App extends Component<AppProps, AppState> {
 
   private swellDrawContainerRef = createRef<HTMLDivElement>();
 
+  public id: string = "";
+  public swellDrawContainerValue: {
+    container: HTMLDivElement | null;
+    id: string;
+  };
+
   constructor(props: AppProps) {
     super(props);
     this.state = {
-      isLoading: true,
+      ...getDefaultAppState(),
       width: window.innerWidth,
       height: window.innerHeight,
     };
     this.canvas = document.createElement("canvas");
     this.rc = rough.canvas(this.canvas);
+
+    this.id = nanoid();
+    this.swellDrawContainerValue = {
+      container: this.swellDrawContainerRef.current,
+      id: this.id,
+    };
   }
 
   private handleInteractiveCanvasRef = (canvas: HTMLCanvasElement | null) => {
@@ -92,23 +108,26 @@ class App extends Component<AppProps, AppState> {
 
   public render() {
     return (
-      <div>
-        <StaticCanvas
-          canvas={this.canvas}
-          appState={this.state}
-          scale={window.devicePixelRatio}
-        />
-        <InteractiveCanvas
-          containerRef={this.swellDrawContainerRef}
-          canvas={this.interactiveCanvas}
-          appState={this.state}
-          scale={window.devicePixelRatio}
-          handleCanvasRef={this.handleInteractiveCanvasRef}
-          onPointerDown={this.handleCanvasPointerDown}
-          onPointerUp={this.handleCanvasPointerUp}
-          onPointerMove={this.handleCanvasPointerMove}
-          onPointerCancel={this.handleCanvasPointerCancel}
-        />
+      <div ref={this.swellDrawContainerRef}>
+        <SwellDrawContext.Provider value={this.swellDrawContainerValue}>
+          <LayerUI appState={this.state} />
+          <StaticCanvas
+            canvas={this.canvas}
+            appState={this.state}
+            scale={window.devicePixelRatio}
+          />
+          <InteractiveCanvas
+            containerRef={this.swellDrawContainerRef}
+            canvas={this.interactiveCanvas}
+            appState={this.state}
+            scale={window.devicePixelRatio}
+            handleCanvasRef={this.handleInteractiveCanvasRef}
+            onPointerDown={this.handleCanvasPointerDown}
+            onPointerUp={this.handleCanvasPointerUp}
+            onPointerMove={this.handleCanvasPointerMove}
+            onPointerCancel={this.handleCanvasPointerCancel}
+          />
+        </SwellDrawContext.Provider>
       </div>
     );
   }

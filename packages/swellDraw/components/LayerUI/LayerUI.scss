@@ -1,0 +1,28 @@
+.swell-draw {
+  .layer-ui__wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: var(--zIndex-layerUI);
+
+    .App-menu {
+      display: grid;
+      .shapes-section {
+        display: flex;
+        justify-content: center;
+        pointer-events: none !important;
+        .App-toolbar {
+          width: 100%;
+        }
+      }
+    }
+    .App-menu_top {
+      grid-template-columns: 1fr 2fr 1fr;
+      grid-gap: 1rem;
+      align-items: flex-start;
+      cursor: default;
+      pointer-events: none !important;
+    }
+  }
+}

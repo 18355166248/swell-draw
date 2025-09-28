@@ -1,0 +1,17 @@
+.swell-draw {
+  .FixedSideContainer {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .FixedSideContainer > * {
+    pointer-events: var(--ui-pointerEvents);
+  }
+
+  .FixedSideContainer_side_top {
+    left: var(--editor-container-padding);
+    top: var(--editor-container-padding);
+    right: var(--editor-container-padding);
+    bottom: var(--editor-container-padding);
+  }
+}

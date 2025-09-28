@@ -6,5 +6,35 @@
   },
   "errorSplash": {
     "headingMain": "Encountered an error. Try <button>reloading the page</button>."
+  },
+  "headings": {
+    "canvasActions": "Canvas actions",
+    "selectedShapeActions": "Selected shape actions",
+    "shapes": "Shapes"
+  },
+  "toolBar": {
+    "selection": "Selection",
+    "lasso": "Lasso selection",
+    "image": "Insert image",
+    "rectangle": "Rectangle",
+    "diamond": "Diamond",
+    "ellipse": "Ellipse",
+    "arrow": "Arrow",
+    "line": "Line",
+    "freedraw": "Draw",
+    "text": "Text",
+    "library": "Library",
+    "lock": "Keep selected tool active after drawing",
+    "penMode": "Pen mode - prevent touch",
+    "link": "Add / Update link for a selected shape",
+    "eraser": "Eraser",
+    "frame": "Frame tool",
+    "magicframe": "Wireframe to code",
+    "embeddable": "Web Embed",
+    "laser": "Laser pointer",
+    "hand": "Hand (panning tool)",
+    "extraTools": "More tools",
+    "mermaidToExcalidraw": "Mermaid to Excalidraw",
+    "convertElementType": "Toggle shape type"
   }
 }
