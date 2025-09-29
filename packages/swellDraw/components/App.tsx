@@ -1,5 +1,5 @@
 import { Component, createRef } from "react";
-import { AppClassProperties, AppProps, AppState } from "../types";
+import { AppClassProperties, AppProps, AppState, ToolType } from "../types";
 import StaticCanvas from "./canvases/StaticCanvas";
 import rough from "roughjs/bin/rough";
 import type { RoughCanvas } from "roughjs/bin/canvas";
@@ -101,12 +101,22 @@ class App extends Component<AppProps, AppState> {
   ) => {
     console.log("handleCanvasPointerCancel", event);
   };
+  public setActiveTool = (
+    tool: { type: ToolType } | { type: "custom"; customType: string },
+  ) => {
+    this.setState({
+      activeTool: {
+        type: tool.type,
+        customType: tool.type === "custom" ? tool.customType : null,
+      },
+    });
+  };
 
   public render() {
     return (
       <div ref={this.swellDrawContainerRef}>
         <SwellDrawContext.Provider value={this.swellDrawContainerValue}>
-          <LayerUI appState={this.state} />
+          <LayerUI appState={this.state} app={this} />
           <StaticCanvas
             canvas={this.canvas}
             appState={this.state}

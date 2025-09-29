@@ -3,14 +3,15 @@ import { FixedSideContainer } from "../FixedSideContainer/FixedSideContainer";
 import Section from "../Section";
 import { Island } from "../Island/Island";
 import { ShapesSwitcher } from "../Actions/Actions";
-import { UIAppState } from "../../types";
+import { AppClassProperties, UIAppState } from "../../types";
 import Stack from "../Stack/Stack";
 
 interface LayerUIProps {
   appState: UIAppState;
+  app: AppClassProperties;
 }
 
-function LayerUI({ appState }: LayerUIProps) {
+function LayerUI({ appState, app }: LayerUIProps) {
   const renderFixedSideContainer = () => {
     return (
       <FixedSideContainer side="top">
@@ -22,7 +23,7 @@ function LayerUI({ appState }: LayerUIProps) {
                 <Island padding={1} className="App-toolbar">
                   {heading}
                   <Stack.Row gap={1}>
-                    <ShapesSwitcher appState={appState} />
+                    <ShapesSwitcher appState={appState} app={app} />
                   </Stack.Row>
                 </Island>
               </div>

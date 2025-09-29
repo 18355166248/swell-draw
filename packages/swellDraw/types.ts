@@ -1,4 +1,5 @@
 import { Merge } from "@swell-draw/common/uitility-types";
+import App from "./components/App";
 
 export type PointerType = "mouse" | "pen" | "touch";
 
@@ -21,8 +22,8 @@ export type ToolType =
   | "laser"; // 激光笔工具
 
 export type ActiveTool = {
-  type: ToolType;
-  customType: null;
+  type: ToolType | "custom";
+  customType: string | null;
 };
 
 export interface SwellDrawProps {
@@ -50,6 +51,7 @@ export type UIAppState = Omit<AppState, "scrollX" | "scrollY">;
 export type AppClassProperties = {
   canvas: HTMLCanvasElement;
   interactiveCanvas: HTMLCanvasElement | null; // 交互式画布
+  setActiveTool: App["setActiveTool"];
 };
 
 type _CommonCanvasAppState = {

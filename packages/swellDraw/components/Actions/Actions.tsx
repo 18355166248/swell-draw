@@ -1,10 +1,16 @@
 import { t } from "@swell-draw/swellDraw/i18n";
-import { UIAppState } from "../../types";
+import { AppClassProperties, UIAppState } from "../../types";
 import { SHAPES } from "../shapes";
 import ToolButton from "../ToolButton/ToolButton";
 import { capitalizeString } from "@swell-draw/common";
 
-export const ShapesSwitcher = ({ appState }: { appState: UIAppState }) => {
+export const ShapesSwitcher = ({
+  appState,
+  app,
+}: {
+  appState: UIAppState;
+  app: AppClassProperties;
+}) => {
   return (
     <>
       {SHAPES.map(({ value, icon }) => {
@@ -18,17 +24,13 @@ export const ShapesSwitcher = ({ appState }: { appState: UIAppState }) => {
             type="radio"
             checked={appState.activeTool.type === value}
             onChange={() => {
-              appState.activeTool = {
-                type: value,
-                customType: null,
-              };
+              if (appState.activeTool.type === value) {
+                return;
+              }
+
+              app.setActiveTool({ type: value });
             }}
-            onPointerDown={() => {
-              appState.activeTool = {
-                type: value,
-                customType: null,
-              };
-            }}
+            onPointerDown={() => {}}
           />
         );
       })}

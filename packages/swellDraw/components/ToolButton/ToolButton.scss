@@ -28,6 +28,10 @@
 
     border-radius: var(--border-radius-lg);
 
+    &:hover {
+      background-color: var(--button-hover-bg);
+    }
+
     & + .ToolIcon__label {
       margin-inline-start: 0;
     }
