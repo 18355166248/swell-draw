@@ -59,3 +59,13 @@ type _CommonCanvasAppState = {
 
 // 交互式画布的 app state
 export type InteractiveCanvasAppState = Readonly<_CommonCanvasAppState & {}>;
+
+// Stack 组件相关类型
+export type StackProps = {
+  children: React.ReactNode;
+  gap?: number;
+  align?: "start" | "center" | "end" | "baseline";
+  justifyContent?: "center" | "space-around" | "space-between";
+  className?: string | boolean;
+  style?: React.CSSProperties;
+};

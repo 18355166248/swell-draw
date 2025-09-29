@@ -45,7 +45,7 @@ type ToolButtonProps =
 
 const ToolButton = (props: ToolButtonProps) => {
   const { id: swellDrawId } = useSwellDrawContext();
-  const { icon, title, className, type, size } = props;
+  const { icon, title, className, type, size = "medium" } = props;
   const innerRef = useRef(null);
   const lastPointerTypeRef = useRef<PointerType | null>(null);
   const sizeCn = `ToolIcon_size_${size}`;

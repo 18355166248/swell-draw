@@ -19,7 +19,7 @@ function LayerUI({ appState }: LayerUIProps) {
           <Section heading="shapes" className="shapes-section">
             {(heading) => (
               <div className="relative" style={{ pointerEvents: "all" }}>
-                <Island className="App-toolbar">
+                <Island padding={1} className="App-toolbar">
                   {heading}
                   <Stack.Row gap={1}>
                     <ShapesSwitcher appState={appState} />

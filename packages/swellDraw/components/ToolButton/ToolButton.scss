@@ -3,18 +3,23 @@
   display: inline-flex;
   align-items: center;
   user-select: none;
+  cursor: pointer;
 
   .ToolIcon_type_radio,
   .ToolIcon_type_checkbox {
     position: absolute;
     opacity: 0;
     pointer-events: none;
+
+    &:checked + .ToolIcon__icon {
+      background-color: var(--color-surface-primary-container);
+    }
   }
 
   .ToolIcon__icon {
     box-sizing: border-box;
-    width: var(--default-button-size);
-    height: var(--default-button-size);
+    width: var(--lg-button-size);
+    height: var(--lg-button-size);
     color: var(--icon-fill-color);
 
     display: flex;

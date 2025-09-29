@@ -1,18 +1,9 @@
 import { forwardRef } from "react";
 import clsx from "clsx";
-
 import "./Stack.scss";
+import { StackProps } from "../../types";
 
-type StackProps = {
-  children: React.ReactNode;
-  gap?: number;
-  align?: "start" | "center" | "end" | "baseline";
-  justifyContent?: "center" | "space-around" | "space-between";
-  className?: string | boolean;
-  style?: React.CSSProperties;
-};
-
-export const RowStack = forwardRef(
+const RowStack = forwardRef(
   (
     { children, gap, align, justifyContent, className, style }: StackProps,
     ref: React.ForwardedRef<HTMLDivElement>,
@@ -36,7 +27,7 @@ export const RowStack = forwardRef(
   },
 );
 
-export const ColStack = forwardRef(
+const ColStack = forwardRef(
   (
     { children, gap, align, justifyContent, className, style }: StackProps,
     ref: React.ForwardedRef<HTMLDivElement>,
@@ -60,3 +51,10 @@ export const ColStack = forwardRef(
   },
 );
 
+// 保持向后兼容的默认导出
+const Stack = {
+  Row: RowStack,
+  Col: ColStack,
+};
+
+export default Stack;

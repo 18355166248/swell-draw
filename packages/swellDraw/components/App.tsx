@@ -94,11 +94,7 @@ class App extends Component<AppProps, AppState> {
     console.log("handleCanvasPointerUp", event);
   };
 
-  private handleCanvasPointerMove = (
-    event: React.PointerEvent<HTMLElement>,
-  ) => {
-    console.log("handleCanvasPointerMove", event);
-  };
+  private handleCanvasPointerMove = () => {};
 
   private handleCanvasPointerCancel = (
     event: React.PointerEvent<HTMLElement>,
