@@ -1,5 +1,11 @@
 import { Component, createRef } from "react";
-import { AppClassProperties, AppProps, AppState, ToolType } from "../types";
+import {
+  AppClassProperties,
+  AppProps,
+  AppState,
+  PointerDownState,
+  ToolType,
+} from "../types";
 import StaticCanvas from "./canvases/StaticCanvas";
 import rough from "roughjs/bin/rough";
 import type { RoughCanvas } from "roughjs/bin/canvas";
@@ -9,6 +15,7 @@ import LayerUI from "./LayerUI/LayerUI";
 import { SwellDrawContext } from "./AppContext";
 import { nanoid } from "nanoid";
 import { getDefaultAppState } from "./appState";
+import { viewportCoordsToSceneCoords } from "../utils/dom";
 
 class App extends Component<AppProps, AppState> {
   canvas: AppClassProperties["canvas"];
@@ -23,10 +30,13 @@ class App extends Component<AppProps, AppState> {
     id: string;
   };
 
+  lastPointerDownEvent: React.PointerEvent<HTMLElement> | null = null;
+
   constructor(props: AppProps) {
     super(props);
     this.state = {
       ...getDefaultAppState(),
+      ...this.getCanvasOffsets(),
       width: window.innerWidth,
       height: window.innerHeight,
     };
@@ -37,6 +47,21 @@ class App extends Component<AppProps, AppState> {
     this.swellDrawContainerValue = {
       container: this.swellDrawContainerRef.current,
       id: this.id,
+    };
+  }
+
+  private getCanvasOffsets(): Pick<AppState, "offsetTop" | "offsetLeft"> {
+    if (this.swellDrawContainerRef?.current) {
+      const swellDrawContainer = this.swellDrawContainerRef.current;
+      const { left, top } = swellDrawContainer.getBoundingClientRect();
+      return {
+        offsetLeft: left,
+        offsetTop: top,
+      };
+    }
+    return {
+      offsetLeft: 0,
+      offsetTop: 0,
     };
   }
 
@@ -79,6 +104,47 @@ class App extends Component<AppProps, AppState> {
     console.log("onTouchEnd", event);
   };
 
+  private initialPointerDownState = (
+    event: React.PointerEvent<HTMLElement>,
+  ): PointerDownState => {
+    const origin = viewportCoordsToSceneCoords(event, this.state);
+
+    return {
+      origin,
+    };
+  };
+
+  /**
+   * 处理鼠标/指针移动事件的核心方法
+   * 当用户在画布上按下鼠标并移动时，此方法会被调用
+   * 主要功能包括：
+   * 1. 处理各种工具的拖拽操作（包括矩形工具）
+   * 2. 处理元素的选择和移动
+   * 3. 处理线性元素的编辑
+   * 4. 处理框选操作
+   *
+   * @param pointerDownState 指针按下时的状态信息，包含起始坐标、拖拽状态等
+   * @returns 返回一个节流处理的事件处理函数
+   */
+  private onPointerMoveFromPointerDownHandler(
+    pointerDownState: PointerDownState,
+  ) {
+    console.log("onPointerMoveFromPointerDownHandler", pointerDownState);
+    return (event: PointerEvent) => {
+      // 将视口坐标转换为场景坐标
+      const pointerCoords = viewportCoordsToSceneCoords(event, this.state);
+      console.log("pointerCoords", pointerCoords);
+      if (this.state.activeTool.type === "rectangle") {
+        // 处理新建元素的拖拽操作（包括矩形工具）
+        // const newElement = this.state.newElement;
+
+        // if (!newElement) {
+        //   return;
+        // }
+      }
+    };
+  }
+
   /**
    * 处理画布上的指针按下事件
    * 这是用户与画布交互的起始点，处理各种指针类型（鼠标、触摸、触控笔等）
@@ -87,7 +153,59 @@ class App extends Component<AppProps, AppState> {
   private handleCanvasPointerDown = (
     event: React.PointerEvent<HTMLElement>,
   ) => {
-    console.log("handleCanvasPointerDown", event);
+    // 保存最后指针按下事件
+    this.lastPointerDownEvent = event;
+
+    // 指针交互期间的状态，从 pointerDown 事件开始，
+    // 以 pointerUp 事件结束（或另一个 pointerDown）
+    const pointerDownState = this.initialPointerDownState(event);
+
+    if (
+      this.state.activeTool.type === "rectangle" ||
+      this.state.activeTool.type === "diamond" ||
+      this.state.activeTool.type === "ellipse"
+    ) {
+      // 处理其他通用元素工具（矩形、椭圆、菱形等）
+      this.createGenericElementOnPointerDown(
+        this.state.activeTool.type,
+        pointerDownState,
+      );
+    }
+
+    // 创建指针移动事件处理器
+    const onPointerMove =
+      this.onPointerMoveFromPointerDownHandler(pointerDownState);
+
+    window.addEventListener(EVENT.POINTER_MOVE, onPointerMove);
+  };
+
+  private createGenericElementOnPointerDown = (
+    elementType: ToolType,
+    pointerDownState: PointerDownState,
+  ): void => {
+    console.log(
+      "createGenericElementOnPointerDown",
+      elementType,
+      pointerDownState,
+    );
+    // let element;
+
+    // 创建通用几何元素（矩形、椭圆、菱形等）
+    // element = newElement({
+    //   type: elementType,
+    //   ...baseElementAttributes,
+    // });
+
+    // 根据元素类型设置不同的状态
+    // if (element.type === "selection") {
+    //   // 如果是选择框，设置为选择元素状态
+    // } else {
+    //   // 对于其他元素，插入到场景中并设置为新元素
+    //   this.scene.insertElement(element);
+    //   this.setState({
+    //     newElement: element, // 设置为当前正在创建的新元素
+    //   });
+    // }
   };
 
   private handleCanvasPointerUp = (event: React.PointerEvent<HTMLElement>) => {

@@ -8,3 +8,4 @@ export const isProdEnv = () => import.meta.env.MODE === ENV.PRODUCTION;
 
 export const capitalizeString = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1);
+

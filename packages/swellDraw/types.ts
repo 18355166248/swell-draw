@@ -44,6 +44,9 @@ export interface AppState {
   activeTool: ActiveTool;
   scrollX: number;
   scrollY: number;
+  zoom: Zoom;
+  offsetTop: number;
+  offsetLeft: number;
 }
 
 export type UIAppState = Omit<AppState, "scrollX" | "scrollY">;
@@ -71,3 +74,14 @@ export type StackProps = {
   className?: string | boolean;
   style?: React.CSSProperties;
 };
+
+export type NormalizedZoomValue = number & { _brand: "normalizedZoom" };
+
+export type Zoom = Readonly<{
+  value: NormalizedZoomValue;
+}>;
+
+export type PointerDownState = Readonly<{
+  // The first position at which pointerDown happened
+  origin: Readonly<{ x: number; y: number }>;
+}>;

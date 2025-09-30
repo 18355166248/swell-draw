@@ -1,6 +1,9 @@
-import { AppState } from "../types";
+import { AppState, NormalizedZoomValue } from "../types";
 
-export const getDefaultAppState = (): Omit<AppState, "width" | "height"> => {
+export const getDefaultAppState = (): Omit<
+  AppState,
+  "width" | "height" | "offsetTop" | "offsetLeft"
+> => {
   return {
     isLoading: true,
     activeTool: {
@@ -9,5 +12,8 @@ export const getDefaultAppState = (): Omit<AppState, "width" | "height"> => {
     },
     scrollX: 0,
     scrollY: 0,
+    zoom: {
+      value: 1 as NormalizedZoomValue,
+    },
   };
 };
