@@ -16,7 +16,11 @@ import { SwellDrawContext } from "./AppContext";
 import { nanoid } from "nanoid";
 import { getDefaultAppState } from "./appState";
 import { viewportCoordsToSceneCoords } from "../utils/dom";
-import { Scene } from "@swell-draw/element";
+import {
+  newElement,
+  Scene,
+  SwellDrawGenericElement,
+} from "@swell-draw/element";
 
 class App extends Component<AppProps, AppState> {
   canvas: AppClassProperties["canvas"];
@@ -181,7 +185,7 @@ class App extends Component<AppProps, AppState> {
   };
 
   private createGenericElementOnPointerDown = (
-    elementType: ToolType,
+    elementType: SwellDrawGenericElement["type"],
     pointerDownState: PointerDownState,
   ): void => {
     console.log(
@@ -208,21 +212,21 @@ class App extends Component<AppProps, AppState> {
 
     console.log(baseElementAttributes);
     // 创建通用几何元素（矩形、椭圆、菱形等）
-    // const element = newElement({
-    //   type: elementType,
-    //   ...baseElementAttributes,
-    // });
+    const element = newElement({
+      type: elementType,
+      ...baseElementAttributes,
+    });
 
-    // // 根据元素类型设置不同的状态
-    // if (element.type === "selection") {
-    //   // 如果是选择框，设置为选择元素状态
-    // } else {
-    //   // 对于其他元素，插入到场景中并设置为新元素
-    //   this.scene.insertElement(element);
-    //   this.setState({
-    //     newElement: element, // 设置为当前正在创建的新元素
-    //   });
-    // }
+    // 根据元素类型设置不同的状态
+    if (element.type === "selection") {
+      // 如果是选择框，设置为选择元素状态
+    } else {
+      // 对于其他元素，插入到场景中并设置为新元素
+      this.scene.insertElement(element);
+      this.setState({
+        newElement: element, // 设置为当前正在创建的新元素
+      });
+    }
   };
 
   private handleCanvasPointerUp = (event: React.PointerEvent<HTMLElement>) => {

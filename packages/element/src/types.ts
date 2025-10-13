@@ -61,14 +61,16 @@ export type SwellDrawEllipseElement = _SwellDrawElementBase & {
   type: "ellipse";
 };
 
-/**
- * These are elements that don't have any additional properties.
- */
-export type SwellDrawElement =
+export type SwellDrawGenericElement =
   | SwellDrawSelectionElement
   | SwellDrawRectangleElement
   | SwellDrawDiamondElement
   | SwellDrawEllipseElement;
+
+/**
+ * These are elements that don't have any additional properties.
+ */
+export type SwellDrawElement = SwellDrawGenericElement;
 
 export type Ordered<TElement extends SwellDrawElement> = TElement & {
   index: FractionalIndex;

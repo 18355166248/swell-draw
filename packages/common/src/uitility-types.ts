@@ -13,3 +13,7 @@ export type LeafKeyOf<T, K extends keyof T = keyof T> = K extends keyof T &
     ? `${K}.${LeafKeyOf<T[K]>}`
     : `${K}`
   : never;
+
+// https://github.com/krzkaczor/ts-essentials
+export type MarkOptional<T, K extends keyof T> = Omit<T, K> &
+  Partial<Pick<T, K>>;

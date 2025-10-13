@@ -1,3 +1,5 @@
+import { SwellDrawElement } from "@swell-draw/element";
+
 export const ENV = {
   TEST: "test",
   DEVELOPMENT: "development",
@@ -39,3 +41,23 @@ export const isIOS =
   (navigator.userAgent.includes("Mac") && "ontouchend" in document);
 
 export const isDarwin = /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+
+export const DEFAULT_ELEMENT_PROPS: {
+  strokeColor: SwellDrawElement["strokeColor"];
+  backgroundColor: SwellDrawElement["backgroundColor"];
+  fillStyle: SwellDrawElement["fillStyle"];
+  strokeWidth: SwellDrawElement["strokeWidth"];
+  strokeStyle: SwellDrawElement["strokeStyle"];
+  roughness: SwellDrawElement["roughness"];
+  opacity: SwellDrawElement["opacity"];
+  locked: SwellDrawElement["locked"];
+} = {
+  strokeColor: '#000',
+  backgroundColor: 'transparent',
+  fillStyle: "solid",
+  strokeWidth: 2,
+  strokeStyle: "solid",
+  roughness: 1,
+  opacity: 100,
+  locked: false,
+};

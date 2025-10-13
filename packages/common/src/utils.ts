@@ -23,3 +23,5 @@ export const toArray = <T>(
 ): T[] => {
   return Array.isArray(values) ? values : Array.from(toIterable(values));
 };
+
+export const getUpdatedTimestamp = () => (isTestEnv() ? 1 : Date.now());
