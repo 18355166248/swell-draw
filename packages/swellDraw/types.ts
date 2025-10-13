@@ -1,5 +1,6 @@
 import { Merge } from "@swell-draw/common/uitility-types";
 import App from "./components/App";
+import { NonDeleted, SwellDrawNonSelectionElement } from "@swell-draw/element";
 
 export type PointerType = "mouse" | "pen" | "touch";
 
@@ -47,6 +48,8 @@ export interface AppState {
   zoom: Zoom;
   offsetTop: number;
   offsetLeft: number;
+
+  newElement: NonDeleted<SwellDrawNonSelectionElement> | null;
 }
 
 export type UIAppState = Omit<AppState, "scrollX" | "scrollY">;

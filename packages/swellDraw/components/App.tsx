@@ -16,6 +16,7 @@ import { SwellDrawContext } from "./AppContext";
 import { nanoid } from "nanoid";
 import { getDefaultAppState } from "./appState";
 import { viewportCoordsToSceneCoords } from "../utils/dom";
+import { Scene } from "@swell-draw/element";
 
 class App extends Component<AppProps, AppState> {
   canvas: AppClassProperties["canvas"];
@@ -24,6 +25,7 @@ class App extends Component<AppProps, AppState> {
 
   private swellDrawContainerRef = createRef<HTMLDivElement>();
 
+  public scene: Scene;
   public id: string = "";
   public swellDrawContainerValue: {
     container: HTMLDivElement | null;
@@ -42,7 +44,7 @@ class App extends Component<AppProps, AppState> {
     };
     this.canvas = document.createElement("canvas");
     this.rc = rough.canvas(this.canvas);
-
+    this.scene = new Scene();
     this.id = nanoid();
     this.swellDrawContainerValue = {
       container: this.swellDrawContainerRef.current,
@@ -137,7 +139,6 @@ class App extends Component<AppProps, AppState> {
       if (this.state.activeTool.type === "rectangle") {
         // 处理新建元素的拖拽操作（包括矩形工具）
         // const newElement = this.state.newElement;
-
         // if (!newElement) {
         //   return;
         // }
@@ -188,15 +189,31 @@ class App extends Component<AppProps, AppState> {
       elementType,
       pointerDownState,
     );
-    // let element;
 
+    // 构建基础元素属性，包含当前工具的样式设置
+    const baseElementAttributes = {
+      x: pointerDownState.origin.x,
+      y: pointerDownState.origin.y,
+      strokeColor: "#000", // 描边颜色
+      backgroundColor: "transparent", // 背景颜色
+      fillStyle: "solid", // 填充样式
+      strokeWidth: 1, // 描边宽度
+      strokeStyle: "solid", // 描边样式
+      roughness: 1, // 粗糙度（手绘效果）
+      opacity: 1, // 透明度
+      roundness: 0, // 圆角设置
+      locked: false, // 是否锁定
+      frameId: null, // 所属框架ID
+    } as const;
+
+    console.log(baseElementAttributes);
     // 创建通用几何元素（矩形、椭圆、菱形等）
-    // element = newElement({
+    // const element = newElement({
     //   type: elementType,
     //   ...baseElementAttributes,
     // });
 
-    // 根据元素类型设置不同的状态
+    // // 根据元素类型设置不同的状态
     // if (element.type === "selection") {
     //   // 如果是选择框，设置为选择元素状态
     // } else {
