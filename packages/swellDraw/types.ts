@@ -87,4 +87,11 @@ export type Zoom = Readonly<{
 export type PointerDownState = Readonly<{
   // The first position at which pointerDown happened
   origin: Readonly<{ x: number; y: number }>;
+  originInGrid: Readonly<{ x: number; y: number }>;
+  eventListeners: {
+    onMove: null | ((event: PointerEvent) => void);
+    onUp: null | ((event: PointerEvent) => void);
+  };
+  // 预览元素的最后坐标
+  lastCoords: { x: number; y: number };
 }>;

@@ -49,6 +49,14 @@ export default defineConfig(({ mode }) => {
           find: /^@swell-draw\/swellDraw\/(.*?)/,
           replacement: path.resolve(__dirname, "../packages/swellDraw/$1"),
         },
+        {
+          find: /^@swell-draw\/element$/,
+          replacement: path.resolve(__dirname, "../packages/element/src"),
+        },
+        {
+          find: /^@swell-draw\/element\/(.*?)/,
+          replacement: path.resolve(__dirname, "../packages/element/src/$1"),
+        },
       ],
     },
     build: {
