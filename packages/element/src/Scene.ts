@@ -6,8 +6,16 @@ import {
   OrderedSwellDrawElement,
   SwellDrawElement,
 } from "@swell-draw/element/types";
-import { Mutable, toArray, toBrandedType } from "@swell-draw/common";
-import { ElementUpdate } from "./mutateElement";
+import {
+  Mutable,
+  randomInteger,
+  toArray,
+  toBrandedType,
+} from "@swell-draw/common";
+import { ElementUpdate, mutateElement } from "./mutateElement";
+
+type SceneStateCallback = () => void;
+type SceneStateCallbackRemover = () => void;
 
 const getNonDeletedElements = <T extends SwellDrawElement>(
   allElements: readonly T[],
@@ -27,12 +35,24 @@ const getNonDeletedElements = <T extends SwellDrawElement>(
 };
 
 export class Scene {
+  private callbacks: Set<SceneStateCallback> = new Set();
+
   private elements: readonly OrderedSwellDrawElement[] = [];
   private nonDeletedElements: readonly Ordered<NonDeletedSwellDrawElement>[] =
     [];
   private nonDeletedElementsMap = toBrandedType<NonDeletedSceneElementsMap>(
     new Map(),
   );
+  /**
+   * 每次场景更新时重新生成的随机整数。
+   *
+   * 与元素版本无关，目前仅用于渲染器缓存失效的随机数。
+   */
+  private sceneNonce: number | undefined;
+
+  getSceneNonce() {
+    return this.sceneNonce;
+  }
 
   getNonDeletedElementsMap() {
     return this.nonDeletedElementsMap;
@@ -76,6 +96,29 @@ export class Scene {
     return this.elements.findIndex((element) => element.id === elementId);
   }
 
+  onUpdate(cb: SceneStateCallback): SceneStateCallbackRemover {
+    if (this.callbacks.has(cb)) {
+      throw new Error();
+    }
+
+    this.callbacks.add(cb);
+
+    return () => {
+      if (!this.callbacks.has(cb)) {
+        throw new Error();
+      }
+      this.callbacks.delete(cb);
+    };
+  }
+
+  triggerUpdate() {
+    this.sceneNonce = randomInteger();
+
+    for (const callback of Array.from(this.callbacks)) {
+      callback();
+    }
+  }
+
   /**
    * 使用传入的更新数据修改元素并触发组件更新
    * 请确保在 React 事件处理器中调用此方法，或在 unstable_batchedUpdates() 内部调用
@@ -95,7 +138,23 @@ export class Scene {
       isDragging: false,
     },
   ) {
-    console.log("mutateElement", options);
+    // 记录修改前的版本号
+    const { version: prevVersion } = element;
+    // 获取场景中所有未删除元素的映射表
+    const elementsMap = this.getNonDeletedElementsMap();
+
+    const { version: nextVersion } = mutateElement(
+      element,
+      elementsMap,
+      updates,
+      options,
+    );
+
+    // 检查是否需要触发场景更新
+    if (prevVersion !== nextVersion) {
+      this.triggerUpdate();
+    }
+
     return element;
   }
 }

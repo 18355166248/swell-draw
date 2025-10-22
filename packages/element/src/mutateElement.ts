@@ -1,4 +1,8 @@
-import { Mutable } from "@swell-draw/common";
+import {
+  getUpdatedTimestamp,
+  Mutable,
+  randomInteger,
+} from "@swell-draw/common";
 import { ElementsMap, SwellDrawElement } from "./types";
 
 export type ElementUpdate<TElement extends SwellDrawElement> = Omit<
@@ -29,4 +33,53 @@ export const mutateElement = <TElement extends Mutable<SwellDrawElement>>(
   },
 ) => {
   console.log("mutateElement", element, elementsMap, updates, options);
+
+  let didChange = false;
+  // 遍历所有更新属性并应用到元素上
+  for (const key in updates) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const value = (updates as any)[key];
+    if (typeof value !== "undefined") {
+      // 检查值是否真的发生了变化
+      if (
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (element as any)[key] === value &&
+        // 如果是对象，总是更新，因为其属性可能已改变
+        // (除了下面我们特殊处理的特定键)
+        (typeof value !== "object" ||
+          value === null ||
+          key === "groupIds" ||
+          key === "scale")
+      ) {
+        continue;
+      }
+
+      // 特殊处理缩放属性
+      if (key === "scale") {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const prevScale = (element as any)[key];
+        const nextScale = value;
+        if (prevScale[0] === nextScale[0] && prevScale[1] === nextScale[1]) {
+          continue;
+        }
+      }
+
+      // 应用更新到元素
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (element as any)[key] = value;
+      didChange = true;
+    }
+  }
+
+  // 如果没有发生任何变化，直接返回原元素
+  if (!didChange) {
+    return element;
+  }
+
+  // 更新元素的版本信息
+  element.version = updates.version ?? element.version + 1;
+  element.versionNonce = updates.versionNonce ?? randomInteger();
+  element.updated = getUpdatedTimestamp();
+
+  return element;
 };

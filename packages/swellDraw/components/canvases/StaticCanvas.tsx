@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import { InteractiveCanvasAppState } from "@swell-draw/swellDraw/types";
 
 type StaticCanvasProps = {
   canvas: HTMLCanvasElement;
   appState: InteractiveCanvasAppState;
   scale: number;
+  sceneNonce: number | undefined;
 };
 
 const StaticCanvas = (props: StaticCanvasProps) => {
@@ -36,4 +37,11 @@ const StaticCanvas = (props: StaticCanvasProps) => {
   return <div className="swell-draw-canvas-wrapper" ref={wrapperRef} />;
 };
 
-export default StaticCanvas;
+const areEqual = (
+  prevProps: StaticCanvasProps,
+  nextProps: StaticCanvasProps,
+) => {
+  return prevProps.sceneNonce === nextProps.sceneNonce;
+};
+
+export default memo(StaticCanvas, areEqual);

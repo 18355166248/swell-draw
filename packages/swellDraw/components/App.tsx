@@ -88,6 +88,10 @@ class App extends Component<AppProps, AppState> {
     };
   }
 
+  public componentDidMount() {
+    this.scene.onUpdate(this.triggerRender);
+  }
+
   /**
    * 获取画布相对于视口的偏移量
    * 用于坐标转换，将视口坐标转换为场景坐标
@@ -435,12 +439,26 @@ class App extends Component<AppProps, AppState> {
     });
   };
 
+  private triggerRender = (
+    // force = true：强制更新 sceneNonce，绕过所有优化机制，确保画布重新渲染
+    force?: boolean,
+  ) => {
+    if (force === true) {
+      this.scene.triggerUpdate();
+    } else {
+      // 通过 React 状态更新触发重新渲染
+      this.setState({});
+    }
+  };
+
   /**
    * 渲染应用组件
    * 返回包含图层UI、静态画布和交互式画布的完整界面
    * @returns JSX 元素
    */
   public render() {
+    const sceneNonce = this.scene.getSceneNonce();
+
     return (
       <div ref={this.swellDrawContainerRef}>
         {/* 提供 SwellDraw 上下文，包含容器引用和 ID */}
@@ -452,6 +470,7 @@ class App extends Component<AppProps, AppState> {
             canvas={this.canvas}
             appState={this.state}
             scale={window.devicePixelRatio}
+            sceneNonce={sceneNonce} // 这个值的变化会触发重新渲染静态画布
           />
           {/* 交互式画布，用于处理用户交互和临时绘制 */}
           <InteractiveCanvas
