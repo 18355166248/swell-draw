@@ -124,6 +124,16 @@ export type NonDeleted<TElement extends SwellDrawElement> = TElement & {
 export type NonDeletedSwellDrawElement = NonDeleted<SwellDrawElement>;
 
 /**
+ * Map of non-deleted elements.
+ * Can be a subset of Scene elements.
+ */
+export type NonDeletedElementsMap = Map<
+  SwellDrawElement["id"],
+  NonDeletedSwellDrawElement
+> &
+  MakeBrand<"NonDeletedSwellDrawElementsMap">;
+
+/**
  * Map of all non-deleted Scene elements.
  * Not a subset. Use this type when you need access to current Scene elements.
  */

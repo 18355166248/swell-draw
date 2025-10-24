@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ENV } from "./constant";
 
 export const isTestEnv = () => import.meta.env.MODE === ENV.TEST;
@@ -81,4 +82,53 @@ export const toBrandedType = <BrandedType, CurrentType = BrandedType>(
   value: Unbrand<BrandedType>,
 ) => {
   return value as CurrentType & BrandedType;
+};
+
+/**
+ * 基于 `opts` 对象的值进行记忆化缓存（严格相等比较）
+ *
+ * @param func 需要缓存的函数
+ * @returns 返回带有缓存功能的函数，包含 clear 方法用于清除缓存
+ */
+export const memoize = <T extends Record<string, any>, R>(
+  func: (opts: T) => R,
+) => {
+  let lastArgs: Map<string, any> | undefined; // 上次调用的参数
+  let lastResult: R | undefined; // 上次调用的结果
+
+  const ret = function (opts: T) {
+    const currentArgs = Object.entries(opts); // 当前调用的参数
+
+    // 如果存在上次的参数，进行严格相等比较
+    if (lastArgs) {
+      let argsAreEqual = true;
+      for (const [key, value] of currentArgs) {
+        if (lastArgs.get(key) !== value) {
+          argsAreEqual = false;
+          break;
+        }
+      }
+      // 如果参数相同，直接返回缓存的结果
+      if (argsAreEqual) {
+        return lastResult;
+      }
+    }
+
+    // 参数不同，执行原函数
+    const result = func(opts);
+
+    // 更新缓存的参数和结果
+    lastArgs = new Map(currentArgs);
+    lastResult = result;
+
+    return result;
+  };
+
+  // 添加清除缓存的方法
+  ret.clear = () => {
+    lastArgs = undefined;
+    lastResult = undefined;
+  };
+
+  return ret as typeof func & { clear: () => void };
 };

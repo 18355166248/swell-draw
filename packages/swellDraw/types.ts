@@ -1,6 +1,10 @@
-import { Merge } from "@swell-draw/common/uitility-types";
+import { MakeBrand, Merge } from "@swell-draw/common/uitility-types";
 import App from "./components/App";
-import { NonDeleted, SwellDrawNonSelectionElement } from "@swell-draw/element";
+import {
+  NonDeleted,
+  NonDeletedElementsMap,
+  SwellDrawNonSelectionElement,
+} from "@swell-draw/element";
 
 export type PointerType = "mouse" | "pen" | "touch";
 
@@ -95,3 +99,6 @@ export type PointerDownState = Readonly<{
   // 预览元素的最后坐标
   lastCoords: { x: number; y: number };
 }>;
+
+export type RenderableElementsMap = NonDeletedElementsMap &
+  MakeBrand<"RenderableElementsMap">;

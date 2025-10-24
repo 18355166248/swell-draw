@@ -58,6 +58,10 @@ export class Scene {
     return this.nonDeletedElementsMap;
   }
 
+  getNonDeletedElements() {
+    return this.nonDeletedElements;
+  }
+
   insertElement = (element: SwellDrawElement) => {
     const index = element.frameId
       ? this.getElementIndex(element.frameId)

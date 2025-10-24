@@ -30,6 +30,7 @@ import {
   Scene,
   SwellDrawGenericElement,
 } from "@swell-draw/element";
+import { Renderer } from "../scene/Renderer";
 
 /**
  * SwellDraw 主应用组件
@@ -49,6 +50,7 @@ class App extends Component<AppProps, AppState> {
 
   // 场景管理器，存储和管理所有图形元素
   public scene: Scene;
+  public renderer: Renderer;
   // 应用实例的唯一标识符
   public id: string = "";
   // 容器上下文值，包含容器引用和 ID
@@ -79,6 +81,7 @@ class App extends Component<AppProps, AppState> {
     this.rc = rough.canvas(this.canvas);
     // 创建场景管理器实例
     this.scene = new Scene();
+    this.renderer = new Renderer(this.scene);
     // 生成唯一的应用实例 ID
     this.id = nanoid();
     // 初始化容器上下文值
@@ -458,6 +461,11 @@ class App extends Component<AppProps, AppState> {
    */
   public render() {
     const sceneNonce = this.scene.getSceneNonce();
+    const { elementsMap, visibleElements } =
+      this.renderer.getRenderableElements({
+        newElementId: this.state.newElement?.id,
+      });
+    console.log(elementsMap, visibleElements);
 
     return (
       <div ref={this.swellDrawContainerRef}>
