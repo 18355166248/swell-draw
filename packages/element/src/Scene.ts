@@ -58,6 +58,10 @@ export class Scene {
     return this.nonDeletedElementsMap;
   }
 
+  getElementsIncludingDeleted() {
+    return this.elements;
+  }
+
   getNonDeletedElements() {
     return this.nonDeletedElements;
   }
@@ -113,6 +117,13 @@ export class Scene {
       }
       this.callbacks.delete(cb);
     };
+  }
+
+  destroy() {
+    this.elements = [];
+    this.nonDeletedElements = [];
+
+    this.callbacks.clear();
   }
 
   triggerUpdate() {

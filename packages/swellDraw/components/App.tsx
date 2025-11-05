@@ -31,6 +31,7 @@ import {
   SwellDrawGenericElement,
 } from "@swell-draw/element";
 import { Renderer } from "../scene/Renderer";
+import NewElementCanvas from "./canvases/NewElementCanvas";
 
 /**
  * SwellDraw 主应用组件
@@ -95,6 +96,9 @@ class App extends Component<AppProps, AppState> {
     this.scene.onUpdate(this.triggerRender);
   }
 
+  public componentWillUnmount() {
+    this.scene.destroy();
+  }
   /**
    * 获取画布相对于视口的偏移量
    * 用于坐标转换，将视口坐标转换为场景坐标
@@ -346,7 +350,6 @@ class App extends Component<AppProps, AppState> {
     // 将事件监听器保存到指针状态中，以便后续清理
     pointerDownState.eventListeners.onMove = onPointerMove;
     pointerDownState.eventListeners.onUp = onPointerUp;
-    console.log(23344, pointerDownState.eventListeners);
   };
 
   /**
@@ -461,6 +464,7 @@ class App extends Component<AppProps, AppState> {
    */
   public render() {
     const sceneNonce = this.scene.getSceneNonce();
+    const allElementsMap = this.scene.getNonDeletedElementsMap();
     const { elementsMap, visibleElements } =
       this.renderer.getRenderableElements({
         newElementId: this.state.newElement?.id,
@@ -480,6 +484,16 @@ class App extends Component<AppProps, AppState> {
             scale={window.devicePixelRatio}
             sceneNonce={sceneNonce} // 这个值的变化会触发重新渲染静态画布
           />
+          {/* 新元素画布，用于渲染正在创建的新元素 */}
+          {this.state.newElement && (
+            <NewElementCanvas
+              appState={this.state}
+              scale={window.devicePixelRatio}
+              rc={this.rc}
+              elementsMap={elementsMap}
+              allElementsMap={allElementsMap}
+            />
+          )}
           {/* 交互式画布，用于处理用户交互和临时绘制 */}
           <InteractiveCanvas
             containerRef={this.swellDrawContainerRef}
