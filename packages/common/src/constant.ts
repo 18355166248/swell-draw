@@ -52,8 +52,8 @@ export const DEFAULT_ELEMENT_PROPS: {
   opacity: SwellDrawElement["opacity"];
   locked: SwellDrawElement["locked"];
 } = {
-  strokeColor: '#000',
-  backgroundColor: 'transparent',
+  strokeColor: "#000",
+  backgroundColor: "transparent",
   fillStyle: "solid",
   strokeWidth: 2,
   strokeStyle: "solid",
@@ -61,3 +61,9 @@ export const DEFAULT_ELEMENT_PROPS: {
   opacity: 100,
   locked: false,
 };
+
+export const ROUGHNESS = {
+  architect: 0,
+  artist: 1,
+  cartoonist: 2,
+} as const;

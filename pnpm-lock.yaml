@@ -97,7 +97,11 @@ importers:
         specifier: workspace:*
         version: link:../eslint-config
 
-  packages/element: {}
+  packages/element:
+    dependencies:
+      roughjs:
+        specifier: 4.6.6
+        version: 4.6.6
 
   packages/eslint-config:
     devDependencies:

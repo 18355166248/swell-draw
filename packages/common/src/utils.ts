@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { COLOR_PALETTE } from './colors';
 import { ENV } from "./constant";
 
 export const isTestEnv = () => import.meta.env.MODE === ENV.TEST;
@@ -264,4 +265,34 @@ export const throttleRAF = <T extends any[]>(
   };
 
   return ret;
+};
+
+/**
+ * supply `null` as message if non-never value is valid, you just need to
+ * typecheck against it
+ */
+export const assertNever = (
+  value: any,
+  message: string | null,
+  softAssert?: boolean,
+): any => {
+  if (!message) {
+    return value;
+  }
+  if (softAssert) {
+    console.error(message);
+    return value;
+  }
+
+  throw new Error(message);
+};
+
+export const isTransparent = (color: string) => {
+  const isRGBTransparent = color.length === 5 && color.substr(4, 1) === "0";
+  const isRRGGBBTransparent = color.length === 9 && color.substr(7, 2) === "00";
+  return (
+    isRGBTransparent ||
+    isRRGGBBTransparent ||
+    color === COLOR_PALETTE.transparent
+  );
 };

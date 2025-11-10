@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "target": "ESNext",
     "module": "ESNext",
+    "moduleResolution": "Node",
     "paths": {
       "@swell-draw/common": ["./common/src/index.ts"],
       "@swell-draw/common/*": ["./common/src/*"],
