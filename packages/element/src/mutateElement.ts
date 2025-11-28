@@ -28,12 +28,10 @@ export const mutateElement = <TElement extends Mutable<SwellDrawElement>>(
   element: TElement,
   elementsMap: ElementsMap,
   updates: ElementUpdate<TElement>,
-  options?: {
-    isDragging?: boolean;
-  },
+  // options?: {
+  //   isDragging?: boolean;
+  // },
 ) => {
-  console.log("mutateElement", element, elementsMap, updates, options);
-
   let didChange = false;
   // 遍历所有更新属性并应用到元素上
   for (const key in updates) {

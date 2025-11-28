@@ -7,7 +7,7 @@ export const getDefaultAppState = (): Omit<
   return {
     isLoading: true,
     activeTool: {
-      type: "selection",
+      type: "rectangle",
       customType: null,
     },
     scrollX: 0,
@@ -15,5 +15,6 @@ export const getDefaultAppState = (): Omit<
     zoom: {
       value: 1 as NormalizedZoomValue,
     },
+    newElement: null,
   };
 };

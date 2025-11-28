@@ -220,7 +220,6 @@ class App extends Component<AppProps, AppState> {
     return (event: PointerEvent) => {
       // 将视口坐标转换为场景坐标
       const pointerCoords = viewportCoordsToSceneCoords(event, this.state);
-      console.log("pointerCoords", pointerCoords);
 
       // 根据当前激活的工具类型处理不同的拖拽操作
       if (this.state.activeTool.type === "rectangle") {
@@ -236,7 +235,7 @@ class App extends Component<AppProps, AppState> {
           pointerDownState.lastCoords.x = pointerCoords.x;
           pointerDownState.lastCoords.y = pointerCoords.y;
           // 调用通用元素拖拽方法，这里包含矩形工具的具体实现
-          this.maybeDragNewGenericElement(pointerDownState, event);
+          this.maybeDragNewGenericElement(pointerDownState);
         }
       }
     };
@@ -252,9 +251,8 @@ class App extends Component<AppProps, AppState> {
    */
   private maybeDragNewGenericElement = (
     pointerDownState: PointerDownState,
-    event: MouseEvent | KeyboardEvent,
+    // event: MouseEvent | KeyboardEvent,
   ): void => {
-    console.log("maybeDragNewGenericElement", event);
     const pointerCoords = pointerDownState.lastCoords;
 
     // 获取当前正在创建的新元素
@@ -465,11 +463,9 @@ class App extends Component<AppProps, AppState> {
   public render() {
     const sceneNonce = this.scene.getSceneNonce();
     const allElementsMap = this.scene.getNonDeletedElementsMap();
-    const { elementsMap, visibleElements } =
-      this.renderer.getRenderableElements({
-        newElementId: this.state.newElement?.id,
-      });
-    console.log(elementsMap, visibleElements);
+    const { elementsMap } = this.renderer.getRenderableElements({
+      newElementId: this.state.newElement?.id,
+    });
 
     return (
       <div ref={this.swellDrawContainerRef}>

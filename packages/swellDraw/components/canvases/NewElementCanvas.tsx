@@ -1,5 +1,5 @@
 import { NonDeletedSceneElementsMap } from "@swell-draw/element";
-import { renderNewElementScene } from '@swell-draw/swellDraw/renderer/renderNewElementScene';
+import { renderNewElementScene } from "@swell-draw/swellDraw/renderer/renderNewElementScene";
 import { AppState, RenderableElementsMap } from "@swell-draw/swellDraw/types";
 import { useEffect, useRef } from "react";
 import { RoughCanvas } from "roughjs/bin/canvas";
@@ -35,7 +35,7 @@ const NewElementCanvas = (props: NewElementCanvasProps) => {
 
   return (
     <canvas
-      className="swell-draw-canvas"
+      className="swell-draw-canvas new-element-canvas"
       style={{
         width: props.appState.width,
         height: props.appState.height,
