@@ -4,6 +4,7 @@ import {
   randomInteger,
 } from "@swell-draw/common";
 import { ElementsMap, SwellDrawElement } from "./types";
+import { ShapeCache } from "./shape";
 
 export type ElementUpdate<TElement extends SwellDrawElement> = Omit<
   Partial<TElement>,
@@ -72,6 +73,13 @@ export const mutateElement = <TElement extends Mutable<SwellDrawElement>>(
   // 如果没有发生任何变化，直接返回原元素
   if (!didChange) {
     return element;
+  }
+
+  if (
+    typeof updates.height !== "undefined" ||
+    typeof updates.width !== "undefined"
+  ) {
+    ShapeCache.delete(element);
   }
 
   // 更新元素的版本信息

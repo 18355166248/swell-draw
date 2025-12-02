@@ -182,7 +182,6 @@ export const renderElement = (
       if (!elementWithCanvas) {
         return;
       }
-      console.log("🚀 ~ renderElement ~ elementWithCanvas:", elementWithCanvas);
 
       // 从缓存的画布绘制元素到主画布
       drawElementFromCanvas(elementWithCanvas, context, appState);
