@@ -1,11 +1,24 @@
 import { memo, useEffect, useRef } from "react";
-import { InteractiveCanvasAppState } from "@swell-draw/swellDraw/types";
+import {
+  StaticCanvasAppState,
+  RenderableElementsMap,
+} from "@swell-draw/swellDraw/types";
+import { RoughCanvas } from "roughjs/bin/canvas";
+import { renderStaticScene } from "@swell-draw/swellDraw/renderer/renderStaticScene";
+import {
+  NonDeletedSceneElementsMap,
+  NonDeletedSwellDrawElement,
+} from "@swell-draw/element";
 
 type StaticCanvasProps = {
   canvas: HTMLCanvasElement;
-  appState: InteractiveCanvasAppState;
+  appState: StaticCanvasAppState;
   scale: number;
   sceneNonce: number | undefined;
+  elementsMap: RenderableElementsMap;
+  allElementsMap: NonDeletedSceneElementsMap;
+  visibleElements: readonly NonDeletedSwellDrawElement[];
+  rc: RoughCanvas;
 };
 
 const StaticCanvas = (props: StaticCanvasProps) => {
@@ -30,18 +43,51 @@ const StaticCanvas = (props: StaticCanvasProps) => {
       isComponentMounted.current = true;
 
       wrapper.replaceChildren(canvas);
-      canvas.classList.add("swell-draw-canvas");
+      canvas.classList.add("swell-draw-canvas", "static-canvas");
     }
-  }, [props.canvas]);
 
-  return <div className="swell-draw-canvas-wrapper" ref={wrapperRef} />;
+    renderStaticScene(
+      {
+        canvas,
+        rc: props.rc,
+        scale: props.scale,
+        elementsMap: props.elementsMap,
+        appState: props.appState,
+        allElementsMap: props.allElementsMap,
+        visibleElements: props.visibleElements,
+      },
+      true,
+    );
+  }, [
+    props.allElementsMap,
+    props.appState,
+    props.canvas,
+    props.elementsMap,
+    props.rc,
+    props.scale,
+    props.visibleElements,
+  ]);
+
+  return (
+    <div
+      className="swell-draw-canvas-wrapper swell-draw-static-canvas"
+      ref={wrapperRef}
+    />
+  );
 };
 
 const areEqual = (
   prevProps: StaticCanvasProps,
   nextProps: StaticCanvasProps,
 ) => {
-  return prevProps.sceneNonce === nextProps.sceneNonce;
+  if (
+    prevProps.sceneNonce !== nextProps.sceneNonce ||
+    prevProps.elementsMap !== nextProps.elementsMap
+  ) {
+    return false;
+  }
+
+  return true;
 };
 
 export default memo(StaticCanvas, areEqual);

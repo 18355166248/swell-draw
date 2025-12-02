@@ -4,3 +4,4 @@ export * from "./newElement";
 export * from "./mutateElement";
 export * from "./dragElements";
 export * from "./renderElement";
+export * from "./sizeHelper";

@@ -26,7 +26,9 @@ import { viewportCoordsToSceneCoords } from "../utils/dom";
 // 元素和场景管理导入
 import {
   dragNewElement,
+  getNormalizedDimensions,
   newElement,
+  NonDeletedSwellDrawElement,
   Scene,
   SwellDrawGenericElement,
 } from "@swell-draw/element";
@@ -59,6 +61,7 @@ class App extends Component<AppProps, AppState> {
     container: HTMLDivElement | null;
     id: string;
   };
+  public visibleElements: readonly NonDeletedSwellDrawElement[];
 
   // 最后记录的指针按下事件，用于处理拖拽等交互
   lastPointerDownEvent: React.PointerEvent<HTMLElement> | null = null;
@@ -83,6 +86,7 @@ class App extends Component<AppProps, AppState> {
     // 创建场景管理器实例
     this.scene = new Scene();
     this.renderer = new Renderer(this.scene);
+    this.visibleElements = [];
     // 生成唯一的应用实例 ID
     this.id = nanoid();
     // 初始化容器上下文值
@@ -294,6 +298,8 @@ class App extends Component<AppProps, AppState> {
     return (event: PointerEvent) => {
       console.log("onPointerUpFromPointerDownHandler", event, pointerDownState);
 
+      const { newElement } = this.state;
+
       window.removeEventListener(
         EVENT.POINTER_MOVE,
         pointerDownState.eventListeners.onMove!,
@@ -302,6 +308,19 @@ class App extends Component<AppProps, AppState> {
         EVENT.POINTER_UP,
         pointerDownState.eventListeners.onUp!,
       );
+
+      if (newElement) {
+        this.scene.mutateElement(
+          newElement,
+          getNormalizedDimensions(newElement),
+        );
+        // the above does not guarantee the scene to be rendered again, hence the trigger below
+        this.scene.triggerUpdate();
+      }
+
+      this.setState({
+        newElement: null,
+      });
     };
   }
 
@@ -463,9 +482,12 @@ class App extends Component<AppProps, AppState> {
   public render() {
     const sceneNonce = this.scene.getSceneNonce();
     const allElementsMap = this.scene.getNonDeletedElementsMap();
-    const { elementsMap } = this.renderer.getRenderableElements({
-      newElementId: this.state.newElement?.id,
-    });
+    const { elementsMap, visibleElements } =
+      this.renderer.getRenderableElements({
+        newElementId: this.state.newElement?.id,
+      });
+
+    this.visibleElements = visibleElements;
 
     return (
       <div ref={this.swellDrawContainerRef}>
@@ -476,9 +498,13 @@ class App extends Component<AppProps, AppState> {
           {/* 静态画布，用于渲染已完成的图形元素 */}
           <StaticCanvas
             canvas={this.canvas}
+            elementsMap={elementsMap}
+            allElementsMap={allElementsMap}
+            visibleElements={visibleElements}
             appState={this.state}
             scale={window.devicePixelRatio}
             sceneNonce={sceneNonce} // 这个值的变化会触发重新渲染静态画布
+            rc={this.rc}
           />
           {/* 新元素画布，用于渲染正在创建的新元素 */}
           {this.state.newElement && (

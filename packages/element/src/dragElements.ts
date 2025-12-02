@@ -33,15 +33,11 @@ export const dragNewElement = ({
 
   if (width !== 0 && height !== 0) {
     // 更新元素属性
-    scene.mutateElement(
-      newElement,
-      {
-        x: newX + (originOffset?.x ?? 0),
-        y: newY + (originOffset?.y ?? 0),
-        width,
-        height,
-      },
-      { isDragging: false },
-    );
+    scene.mutateElement(newElement, {
+      x: newX + (originOffset?.x ?? 0),
+      y: newY + (originOffset?.y ?? 0),
+      width,
+      height,
+    });
   }
 };

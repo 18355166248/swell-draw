@@ -1,9 +1,14 @@
 import {
   NonDeletedSceneElementsMap,
+  NonDeletedSwellDrawElement,
   SwellDrawElement,
 } from "@swell-draw/element";
 import { RoughCanvas } from "roughjs/bin/canvas";
-import { AppState, RenderableElementsMap } from "../types";
+import {
+  AppState,
+  RenderableElementsMap,
+  StaticCanvasAppState,
+} from "../types";
 import { Drawable } from "roughjs/bin/core";
 
 export type NewElementSceneRenderConfig = {
@@ -31,4 +36,14 @@ export type ElementShapes = {
   image: null;
   frame: null;
   magicframe: null;
+};
+
+export type StaticSceneRenderConfig = {
+  canvas: HTMLCanvasElement;
+  rc: RoughCanvas;
+  elementsMap: RenderableElementsMap;
+  allElementsMap: NonDeletedSceneElementsMap;
+  visibleElements: readonly NonDeletedSwellDrawElement[];
+  scale: number;
+  appState: StaticCanvasAppState;
 };

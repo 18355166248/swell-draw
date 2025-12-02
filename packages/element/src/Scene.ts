@@ -147,11 +147,6 @@ export class Scene {
   mutateElement<TElement extends Mutable<SwellDrawElement>>(
     element: TElement,
     updates: ElementUpdate<TElement>,
-    options: {
-      isDragging: boolean;
-    } = {
-      isDragging: false,
-    },
   ) {
     // 记录修改前的版本号
     const { version: prevVersion } = element;
@@ -162,7 +157,6 @@ export class Scene {
       element,
       elementsMap,
       updates,
-      options,
     );
 
     // 检查是否需要触发场景更新

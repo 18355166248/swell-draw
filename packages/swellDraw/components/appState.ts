@@ -1,3 +1,4 @@
+import { DEFAULT_GRID_SIZE, DEFAULT_GRID_STEP } from '@swell-draw/common';
 import { AppState, NormalizedZoomValue } from "../types";
 
 export const getDefaultAppState = (): Omit<
@@ -16,5 +17,7 @@ export const getDefaultAppState = (): Omit<
       value: 1 as NormalizedZoomValue,
     },
     newElement: null,
+    gridSize: DEFAULT_GRID_SIZE,
+    gridStep: DEFAULT_GRID_STEP,
   };
 };

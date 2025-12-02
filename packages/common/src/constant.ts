@@ -67,3 +67,6 @@ export const ROUGHNESS = {
   artist: 1,
   cartoonist: 2,
 } as const;
+
+export const DEFAULT_GRID_SIZE = 20;
+export const DEFAULT_GRID_STEP = 5;

@@ -54,6 +54,9 @@ export interface AppState {
   offsetLeft: number;
 
   newElement: NonDeleted<SwellDrawNonSelectionElement> | null;
+
+  gridSize: number;
+  gridStep: number;
 }
 
 export type UIAppState = Omit<AppState, "scrollX" | "scrollY">;
@@ -67,10 +70,20 @@ export type AppClassProperties = {
 type _CommonCanvasAppState = {
   width: AppState["width"];
   height: AppState["height"];
+  zoom: AppState["zoom"];
+  scrollX: AppState["scrollX"];
+  scrollY: AppState["scrollY"];
 };
 
 // 交互式画布的 app state
 export type InteractiveCanvasAppState = Readonly<_CommonCanvasAppState & {}>;
+
+export type StaticCanvasAppState = Readonly<
+  _CommonCanvasAppState & {
+    gridSize: AppState["gridSize"];
+    gridStep: AppState["gridStep"];
+  }
+>;
 
 // Stack 组件相关类型
 export type StackProps = {
